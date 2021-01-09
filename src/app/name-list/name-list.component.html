@@ -1,0 +1,21 @@
+
+<ion-grid>
+
+  <ion-row *ngFor="let person of (personData | async)" class="ion-align-items-center">
+    <ion-col>
+      <ion-item>
+        <ion-label>{{person.name}} </ion-label>
+        <ion-checkbox color="primary" checked slot="start" (ionChange)="ionChange($event.checked, person)"></ion-checkbox>
+
+      </ion-item>
+      
+    </ion-col>
+    <ion-col size="2" >
+      <ion-button color="secondary" size="small" >
+        <ion-icon name="calendar-outline">
+
+        </ion-icon>  
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
