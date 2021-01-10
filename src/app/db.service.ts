@@ -16,6 +16,7 @@ export class DbService {
   usersDataSubscription: Subscription = null;
 
   peopleDbData: BehaviorSubject<Person[]> = new BehaviorSubject([]);
+  collectionSettingsSubject: BehaviorSubject<CollectionSettings> = new BehaviorSubject(null);
 
   constructor(private afs: AngularFirestore) { 
     
@@ -27,12 +28,13 @@ export class DbService {
     select a collection with corresponding user data
   */
 
-  loadCollection(collectionName : string){ // select a new Collection
+  loadCollection(collectionName : string, loadUsersData: boolean = true){ // select a new Collection
     this.collectionName = collectionName;
     this.collectionLoaded = false;
     
     // we need to request the collection data
     this.afs.collection(this.collectionName).doc("settings").get().subscribe(data =>{
+
       this.collectionSettings = {
         startDate : data.data()["startDate"],
         endDate : data.data()["endDate"],
@@ -40,9 +42,12 @@ export class DbService {
         startHour : data.data()["startHour"], 
         endHour : data.data()["endHour"]
       };
+      this.collectionSettingsSubject.next(this.collectionSettings);
       this.collectionLoaded = true;
 
-      this.requestUserData();
+      if (loadUsersData){
+        this.requestUserData();
+      }
     });
 
   }
@@ -99,4 +104,14 @@ export class DbService {
     return this.peopleDbData.asObservable();
   }
 
+  /*
+    getCollectionSettings()
+
+    request collection settings observable
+  */
+
+  getCollectionSettings() : Observable<CollectionSettings>{
+    return this.collectionSettingsSubject.asObservable();
+  }
 }
+

@@ -7,10 +7,19 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'static-calendar-test',
+    loadChildren: () => import('./static-calendar-test/static-calendar-test.module').then( m => m.StaticCalendarTestPageModule)
+  },
+  {
+    path: 'name-list-test',
+    loadChildren: () => import('./name-list-test/name-list-test.module').then( m => m.NameListTestPageModule)
+  },
+  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'static-calendar-test',
     pathMatch: 'full'
   },
+
 ];
 
 @NgModule({
