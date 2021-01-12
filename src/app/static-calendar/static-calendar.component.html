@@ -1,45 +1,66 @@
 
-<ion-content fullscreen>
-  <ion-slides pager="true" [options]="slideOpts">
 
-    <ion-slide *ngFor="let slide of calendarSlides" class="myContainer">
-      <ion-header scroll="false">
-        <ion-grid class="dateContainer">
-          <ion-row>
+<ion-slides pager="true" [options]="slideOpts" class="slideContainer">
+  <ion-slide *ngFor="let slide of calendarSlides" class="myContainer" >
+    <div class="upContainer">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="1.5" class="table-item-top">
+            
+          </ion-col>
+          <ion-col size="1.5" class="table-item-top" *ngFor="let col of slide.cols ; last as isLastRow">
+            <div  *ngIf="col!='voidcol'">
+              {{convertToTinyFormat(col)[1]}}<br>
+              {{convertToTinyFormat(col)[0]}}
+            </div>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="dateContainer">
+      <div class="insideDateCointainer">
+        <ion-grid>
+          <ion-row *ngFor="let row of slide.rows; last as isLastRow">
             <ion-col size="1.5" class="table-item">
-              
+              {{row}}
             </ion-col>
-            <ion-col size="1.5" class="table-item" *ngFor="let col of slide.cols ; last as isLastRow">
-              <div  *ngIf="col!='voidcol'">
-                {{col}}
+            <ion-col size="1.5" *ngFor="let col of slide.cols; last as isLastCol" class="no-margin">
+              <div class="table-item " [ngClass]="
+              {
+                'bottom-table-item': isLastRow, 
+                'right-table-item': isLastCol,
+                'void-item': col=='voidcol',
+                'green-background': timeAvailable(col + 'T' + row)
+              }"
+              >
+
+              <div *ngIf="timeAvailable(col + 'T' + row)">
+                <ion-icon name="checkmark"></ion-icon>
+              </div>
+
               </div>
             </ion-col>
-
           </ion-row>
         </ion-grid>
-      </ion-header>
-      <div class="dateContainer">
-          <ion-grid>
-            <ion-row *ngFor="let row of slide.rows; last as isLastRow">
-              <ion-col size="1.5" class="table-item">
-                {{row}}
-              </ion-col>
-              <ion-col size="1.5" *ngFor="let col of slide.cols; last as isLastCol" class="no-margin">
-                <div class="table-item" [ngClass]="
-                {
-                  'bottom-table-item': isLastRow, 
-                  'right-table-item': isLastCol,
-                  'void-item': col=='voidcol'
-                }"
-                >
-                </div>
-
-              </ion-col>
-            </ion-row>
-          </ion-grid>
       </div>
-        
-      
-    </ion-slide>
-  </ion-slides>
-</ion-content>
+      <!--<ion-grid>
+        <ion-row *ngFor="let row of slide.rows; last as isLastRow">
+          <ion-col size="1.5" class="table-item">
+            {{row}}
+          </ion-col>
+          <ion-col size="1.5" *ngFor="let col of slide.cols; last as isLastCol" class="no-margin">
+            <div class="table-item" [ngClass]="
+            {
+              'bottom-table-item': isLastRow, 
+              'right-table-item': isLastCol,
+              'void-item': col=='voidcol'
+            }"
+            >
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>-->
+    </div>
+  </ion-slide>
+</ion-slides>

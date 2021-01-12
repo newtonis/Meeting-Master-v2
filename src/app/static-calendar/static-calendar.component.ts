@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { getDaysBetween, convertToTinyFormat, convertToTinyHours } from '../types';
 
 export interface CalendarSlide{
-  rows: string[];
   cols: string[];
+  rows: string[];
   id: number;
 }
 
@@ -17,6 +17,9 @@ export interface CalendarSlide{
 
 export class StaticCalendarComponent implements OnInit {
   @Input() settings : Observable<CollectionSettings>; // input settings to know how to show dates
+  @Input() timetable : Observable<{[id:string]:boolean}>; // input that show which squares to paint
+
+  timetableObject: {[id:string]:boolean} = {};
 
   rows: string[] = [];
   cols: string[] = [];
@@ -37,7 +40,7 @@ export class StaticCalendarComponent implements OnInit {
         
         this.cols = [];
         for (var day of days){
-          this.cols.push(convertToTinyFormat(day));
+          this.cols.push(day);
         }
 
         for (var hour = data.startHour; hour < data.endHour;hour += 1){
@@ -47,8 +50,17 @@ export class StaticCalendarComponent implements OnInit {
         this.generateCalendarSlides();
       }
     });
+    this.timetable.subscribe( data => {
+      this.timetableObject = data;
+    })
   }
-
+  timeAvailable(val: string) : boolean{
+    return this.timetableObject[val];
+  }
+  // we need this function to make it accesible from html
+  convertToTinyFormat(val: string){ 
+    return convertToTinyFormat(val);
+  }
   generateCalendarSlides(){
     this.calendarSlides = [];
 

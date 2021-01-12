@@ -61,23 +61,24 @@ export function getDaysBetween(startTime: string, endTime: string){
     var ans: string[] = [];
 
     for (let day_id in interval){
-        var dateString: string = format(interval[day_id], "yyyy-MM-dd'T'HH");
+        var dateString: string = format(interval[day_id], "yyyy-MM-dd");
         ans.push(dateString);
     }
 
     return ans;
 }
 
-export function convertToTinyFormat(startTime: string) : string{
-    var date: Date = parse(startTime, "yyyy-MM-dd'T'HH", new Date());
-    var simpleDate: string = format(date, "ccc dd");
+export function convertToTinyFormat(startTime: string) : [string, string]{
+    var date: Date = parse(startTime, "yyyy-MM-dd", new Date());
+    var day: string = format(date, "ccc")[0];
+    var number: string = format(date,"dd");
 
-    return simpleDate;
+    return [day,number];
 }
 
 export function convertToTinyHours(time: string) : string{
     var date: Date = parse(time, "HH", new Date());
-    var simpleDate: string = format(date, "HH:00");
+    var simpleDate: string = format(date, "HH");
 
     return simpleDate;
 }
