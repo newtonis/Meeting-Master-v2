@@ -16,8 +16,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'static-calendar-test',
+    redirectTo: 'dynamic-calendar-test',
     pathMatch: 'full'
+  },
+  {
+    path: 'dynamic-calendar-test',
+    loadChildren: () => import('./dynamic-calendar-test/dynamic-calendar-test.module').then( m => m.DynamicCalendarTestPageModule)
   },
 
 ];

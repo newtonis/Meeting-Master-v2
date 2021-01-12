@@ -1,0 +1,85 @@
+
+.table-item{
+    border-top: 1px solid #c5c5c5;
+    border-left: 1px solid #c5c5c5;
+    height:40px;
+    margin: 0px;
+    text-align: center;
+    table-layout: fixed;
+    vertical-align: middle;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.table-item-top{
+    border-top: 1px solid #c5c5c5;
+    border-left: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;;
+    height:60px;
+    margin: 0px;
+    text-align: center;
+    table-layout: fixed;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.green-background{
+    background-color: #76c795;
+}
+.red-background{
+    background-color: #e05c5c;
+}
+.bottom-table-item{
+    border-bottom: 1px solid #c5c5c5;
+}
+.right-table-item{
+    border-right: 1px solid #c5c5c5;
+}
+.no-margin{
+    margin: 0px;
+    padding: 0px;
+}
+.void-item{
+    background-color: #c5c5c5;
+}
+.myContainer{
+    flex-direction: column;
+    display: flex;
+    //overflow-y: hidden;
+    width:100%;
+    height:100%;
+}
+.times{
+    flex: 1;
+}
+.listLeft{
+    max-width: 8rem;
+
+}
+.dateContainer{
+    width:100%;
+    height:max-content;
+    overflow-y: scroll;
+}
+.insideDateCointainer{
+    width:100%;
+    //background-color:#fff000;
+}
+.upContainer{
+    width:100%;
+    //background-color:#000fff;
+    margin:0px;
+    padding: 0px;
+}
+:host{
+    height:100%;
+}
+.slideContainer{
+    height: 100%;
+}
+/*ion-content {
+    // overwrite inline styles
+   //--overflow: hidden;
+}*/
