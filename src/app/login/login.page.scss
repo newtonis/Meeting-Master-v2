@@ -1,0 +1,36 @@
+.titleImg{
+    width:200px;
+    height:100%;
+    margin:20px;
+}
+.title{
+    margin:20px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.subtitle{
+    margin:20px;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.startingButton{
+    margin:20px;
+}
+.smallText{
+    font-size: 9px;
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin:20px;
+    padding:20px;
+    width:100%;
+}

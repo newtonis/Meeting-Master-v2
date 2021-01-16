@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.meetingmaster;
 
 import android.os.Bundle;
 

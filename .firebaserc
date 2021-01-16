@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "meetingmaster-a0688": {
+      "hosting": {
+        "app": [
+          "meetingmaster-a0688"
+        ]
+      }
+    }
+  }
+}

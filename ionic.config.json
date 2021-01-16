@@ -1,7 +1,8 @@
 {
-  "name": "meeting-master-v2",
+  "name": "com.meetingmaster",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

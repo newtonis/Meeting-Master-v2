@@ -16,14 +16,26 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'dynamic-calendar-test',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
     path: 'dynamic-calendar-test',
     loadChildren: () => import('./dynamic-calendar-test/dynamic-calendar-test.module').then( m => m.DynamicCalendarTestPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'select-use-mode',
+    loadChildren: () => import('./select-use-mode/select-use-mode.module').then( m => m.SelectUseModePageModule),
 
+  },
+  {
+    path: 'create-meeting',
+    loadChildren: () => import('./create-meeting/create-meeting.module').then( m => m.CreateMeetingPageModule)
+  }
 ];
 
 @NgModule({
