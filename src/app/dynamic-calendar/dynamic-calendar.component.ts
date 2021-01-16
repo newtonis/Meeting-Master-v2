@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter  } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CollectionSettings } from '../types';
 import { getDaysBetween, convertToTinyFormat, convertToTinyHours } from '../types';
 
@@ -21,6 +22,10 @@ export class DynamicCalendarComponent implements OnInit {
   timetableLocal: {[id: string] : boolean} = {}; // local timetable with local changes
 
   @Output() outputTimetable: Observable<{[id:string]:boolean}>; // timetable to send changes outside
+  @ViewChild('mySlider') slider : IonSlides;
+
+  @Output() pageUpdated: EventEmitter<number> = new EventEmitter();
+  @Output() numberOfPagesUpdated: EventEmitter<number> = new EventEmitter();
 
   rows: string[] = [];
   cols: string[] = [];
@@ -28,7 +33,13 @@ export class DynamicCalendarComponent implements OnInit {
   calendarSlides: CalendarSlide[] = [];
   daysPerSlide: number = 7;
 
-  constructor() { }
+  subscription: Subscription = null;
+
+
+
+  constructor() { 
+
+  }
 
   ngOnInit() {
     this.settings.subscribe((data: CollectionSettings) => {
@@ -52,7 +63,10 @@ export class DynamicCalendarComponent implements OnInit {
     this.timetable.subscribe( data => {
       this.timetableLocal = data;
     })
+
+
   }
+
   click(col: string, row: string){
     console.log(this.timetableLocal);
     if (this.timetableLocal[row + "T"+ col]){
@@ -69,6 +83,7 @@ export class DynamicCalendarComponent implements OnInit {
   convertToTinyFormat(val: string){ 
     return convertToTinyFormat(val);
   }
+
   generateCalendarSlides(){
     this.calendarSlides = [];
 
@@ -93,7 +108,24 @@ export class DynamicCalendarComponent implements OnInit {
 
       slideNumber += 1;
     }
+    this.pageUpdated.emit(0);
+    this.numberOfPagesUpdated.emit(slideNumber);
 
-    console.log(this.calendarSlides);
+    console.log(slideNumber);
+
+    if (this.subscription){
+      this.subscription.unsubscribe();
+    }
+    this.subscription = this.slider.ionSlideTransitionEnd.subscribe(progress => 
+      {
+        //console.log("transition end");
+        this.slider.getActiveIndex().then( 
+          
+            (val : number) => this.pageUpdated.emit(val),
+            (error) => console.log(error)
+
+        );
+      }
+    );
   }
 }

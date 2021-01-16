@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-join-meeting',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinMeetingPage implements OnInit {
 
-  constructor() { }
+  meetingId: string;
+
+  constructor(
+    private router: Router) { }
 
   ngOnInit() {
   }
 
+  join(){
+    console.log("meeting id = " + this.meetingId);
+
+    this.router.navigateByUrl("/select-your-timetable/" + this.meetingId );
+  }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'meeting/testMeeting',
     pathMatch: 'full'
   },
   {
@@ -35,6 +35,14 @@ const routes: Routes = [
   {
     path: 'create-meeting',
     loadChildren: () => import('./create-meeting/create-meeting.module').then( m => m.CreateMeetingPageModule)
+  },
+  {
+    path: 'meeting/:id',
+    loadChildren: () => import('./meeting/meeting.module').then( m => m.MeetingPageModule)
+  },
+  {
+    path: 'select-your-timetable/:id',
+    loadChildren: () => import('./select-your-timetable/select-your-timetable.module').then( m => m.SelectYourTimetablePageModule)
   }
 ];
 

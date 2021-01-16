@@ -1,5 +1,5 @@
-<ion-slides pager="true" [options]="slideOpts" class="slideContainer">
-  <ion-slide *ngFor="let slide of calendarSlides" class="myContainer" >
+<ion-slides #mySlider pager="true" [options]="slideOpts" class="slideContainer" ionSlideDidChange="slideHasChanged($index)">
+  <ion-slide *ngFor="let slide of calendarSlides" class="myContainer">
     <div class="upContainer">
       <ion-grid>
         <ion-row>
