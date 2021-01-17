@@ -10,20 +10,23 @@
 </ion-header>
 
 <ion-content class="content">
-  <div>
-    <app-dynamic-calendar (pageUpdated)="pageUpdated($event)" (numberOfPagesUpdated)="numberOfPagesUpdated($event)" [settings]="calendarSettings" [timetable]="testTimetable">
-    </app-dynamic-calendar>
-  </div>
+  <app-dynamic-calendar #myCalendar (pageUpdated)="pageUpdated($event)" (numberOfPagesUpdated)="numberOfPagesUpdated($event)" (scrollBottom)="updateBottom($event)" [settings]="calendarSettings" [timetable]="testTimetable">
+  </app-dynamic-calendar>
 </ion-content>
 
 <ion-footer class="footer">
 
-  <ion-button  *ngIf="lastSlide" class="footer-button" (click)="save()">
-    <ion-label>Save</ion-label>&nbsp;
+  <ion-button  *ngIf="!isBottom" class="footer-button" (click)="goToBottom()">
+    <ion-label>Bottom</ion-label>&nbsp;
+    <ion-icon name="arrow-down-outline">  </ion-icon>
+  </ion-button>
+
+  <ion-button  *ngIf="isBottom && lastSlide" class="footer-button" (click)="save()">
+    <ion-label>Save & Finish</ion-label>&nbsp;
     <ion-icon name="send">  </ion-icon>
   </ion-button>
 
-  <ion-button *ngIf="!lastSlide" class="footer-button" (click)="save()">
+  <ion-button *ngIf="isBottom && !lastSlide" class="footer-button" (click)="nextPage()">
     <ion-label>Next Page</ion-label>&nbsp;
     <ion-icon name="arrow-forward-outline">  </ion-icon>
   </ion-button>

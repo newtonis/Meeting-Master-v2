@@ -18,18 +18,17 @@ export class SelectYourTimetablePage implements OnInit {
   lastSlide: boolean = false;
   pages: number = null;
   currentPage: number = null;
-  
+  isBottom: boolean = false;
 
+  @ViewChild('myCalendar') myCalendar: DynamicCalendarComponent;
+  
 
   constructor(private dbService: DbService, private router: Router, private route: ActivatedRoute) { 
     this.dbService.loadCollection("ExampleTimetable", false);
     this.calendarSettings = this.dbService.getCollectionSettings();
     this.id = this.route.snapshot.paramMap.get('id');
-
     this.testTimetable = of({"2020-01-01T00":true,"2020-01-01T05":true});
     
-    
-
   }
   ngOnInit() {
 
@@ -54,6 +53,19 @@ export class SelectYourTimetablePage implements OnInit {
     console.log(this.currentPage, this.pages);
   }
 
+  goToBottom(){
+    this.myCalendar.scrollToBottom();
+  }
+
+  nextPage(){
+    this.myCalendar.nextPage();
+  }
+
+  updateBottom(value: boolean){
+    console.log("buttom = " + value);
+    this.isBottom = value;
+  }
+  
   save(){
     console.log(this.id);
     this.router.navigateByUrl(`/meeting/${this.id}`);
