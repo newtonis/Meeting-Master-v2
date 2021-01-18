@@ -146,11 +146,17 @@ export class DbService {
       rejects = reject;
     });
 
-    this.afs.collection(settings.id).doc("settings").set(settings)
-    .then( msg => {
-      resolves(msg);
-    }).catch( err => {
-      rejects(err);
+    this.afs.collection(settings.id).doc("settings").get().subscribe(data =>{
+      if (!data.exists){
+        this.afs.collection(settings.id).doc("settings").set(settings)
+        .then( msg => {
+          resolves(msg);
+        }).catch( err => {
+          rejects(err);
+        })
+      }else{
+        rejects("The name " + settings.id + " is already taken");
+      }
     })
 
     return promise;
@@ -175,6 +181,7 @@ export class DbService {
         rejects(false);
       }
     })
+
     
     return promise;
   }
