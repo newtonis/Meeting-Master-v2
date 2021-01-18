@@ -1,15 +1,29 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="join-meeting">
-      <ion-label>Join meeting</ion-label>
-      <ion-icon name="videocam"></ion-icon>
-    </ion-tab-button>
-    
-    <ion-tab-button tab="create-meeting">
-      <ion-label>Create meeting</ion-label>
-      <ion-icon name="musical-note"></ion-icon>
-    </ion-tab-button>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Meeting Master</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="logOut()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
 
-  </ion-tab-bar>
+</ion-header>
 
-</ion-tabs>
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="join-meeting">
+        <ion-label>Join meeting</ion-label>
+        <ion-icon name="videocam"></ion-icon>
+      </ion-tab-button>
+      
+      <ion-tab-button tab="create-meeting">
+        <ion-label>Create meeting</ion-label>
+        <ion-icon name="musical-note"></ion-icon>
+      </ion-tab-button>
+
+    </ion-tab-bar>
+
+  </ion-tabs>
+</ion-content>

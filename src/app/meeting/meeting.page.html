@@ -1,16 +1,29 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    
-    <ion-tab-button tab="select-people">
-      <ion-label>Select people</ion-label>
-      <ion-icon name="people-circle-outline"></ion-icon>
-    </ion-tab-button>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{meetingId}}</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-circle-outline" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-tab-button tab="current-timetable">
-      <ion-label>Timetable</ion-label>
-      <ion-icon name="calendar-clear-outline"></ion-icon>
-    </ion-tab-button>
+<ion-content>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      
+      <ion-tab-button tab="select-people">
+        <ion-label>Select people</ion-label>
+        <ion-icon name="people-circle-outline"></ion-icon>
+      </ion-tab-button>
 
-  </ion-tab-bar>
+      <ion-tab-button tab="current-timetable">
+        <ion-label>Timetable</ion-label>
+        <ion-icon name="calendar-clear-outline"></ion-icon>
+      </ion-tab-button>
 
-</ion-tabs>
+    </ion-tab-bar>
+
+  </ion-tabs>
+</ion-content>

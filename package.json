@@ -34,6 +34,7 @@
     "cordova-support-android-plugin": "^1.0.2",
     "date-fns": "^2.16.1",
     "firebase": "^7.24.0",
+    "ng2-animate-on-scroll": "^2.2.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

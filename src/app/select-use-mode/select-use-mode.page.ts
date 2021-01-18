@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import EventEmitter from 'events';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-select-use-mode',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectUseModePage implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  logOut(){
+    
+    this.authService.logOut().then( msg => {
+      console.log(msg);
+      this.router.navigateByUrl("/login");
+    }).catch( msg => {
+      console.log(msg);
+    })
   }
 
 }

@@ -22,6 +22,50 @@ export interface CollectionSettings{
     startHour: number;
     endHour: number;
     mode: string;
+    id: string;
+    weekdays: number[];
+    owner: string;
+}
+
+export function createCollectionSettingsDateMode(
+    id,
+    owner,
+    startDate,
+    endDate,
+    startHour,
+    endHour
+) : CollectionSettings{
+
+    return {
+        startDate: startDate,
+        endDate: endDate,
+        startHour: startHour,
+        endHour: endHour,
+        mode: "date",
+        id: id,
+        weekdays:[],
+        owner: owner
+    }
+}
+
+export function createCollectionSettingsWeekMode(
+    id,
+    owner,
+    startHour,
+    endHour,
+    weekdays
+) : CollectionSettings{
+
+    return {
+        startDate:"void",
+        endDate:"void",
+        startHour:startHour,
+        endHour:endHour,
+        mode:"week",
+        id: id,
+        weekdays: weekdays,
+        owner: owner
+    }
 }
 
 export function timeToString(hour: number, day: number, month: number, year: number) : string{

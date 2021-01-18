@@ -6,8 +6,17 @@
           <ion-col size="1.5" class="table-item-top">
             
           </ion-col>
-          <ion-col size="1.5" class="table-item-top" *ngFor="let col of slide.cols ; last as isLastRow">
-            <div  *ngIf="col!='voidcol'">
+          <ion-col 
+          size="1.5" 
+          class="table-item-top" 
+          *ngFor="let col of slide.cols ; last as isLastCol"
+          [ngClass]="
+          {
+            'right-table-item': isLastCol
+          }"
+          >
+            <div *ngIf="col!='voidcol'"
+            >
               {{convertToTinyFormat(col)[1]}}<br>
               {{convertToTinyFormat(col)[0]}}
             </div>
@@ -20,7 +29,14 @@
       <div class="insideDateCointainer">
         <ion-grid>
           <ion-row *ngFor="let row of slide.rows; last as isLastRow">
-            <ion-col size="1.5" class="table-item">
+            <ion-col 
+            size="1.5" 
+            class="table-item"
+            [ngClass]="
+            {
+              'bottom-table-item': isLastRow
+            }"
+            >
               {{row}}
             </ion-col>
             <ion-col size="1.5" *ngFor="let col of slide.cols; last as isLastCol" class="no-margin">

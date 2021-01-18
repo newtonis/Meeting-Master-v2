@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { Person, YearDay, getDaysBetween, CollectionSettings } from './types';
+import { Person, YearDay, getDaysBetween, CollectionSettings,createCollectionSettingsDateMode, createCollectionSettingsWeekMode } from './types';
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
+import { EventEmitter } from 'events';
+import { promise } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +37,27 @@ export class DbService {
     // we need to request the collection data
     this.afs.collection(this.collectionName).doc("settings").get().subscribe(data =>{
 
-      this.collectionSettings = {
-        startDate : data.data()["startDate"],
-        endDate : data.data()["endDate"],
-        mode : data.data()["mode"],
-        startHour : data.data()["startHour"], 
-        endHour : data.data()["endHour"]
-      };
+      if (data.data()["mode"] == "date"){
+        this.collectionSettings = 
+          createCollectionSettingsDateMode(
+            data.data()["id"],
+            data.data["owner"],
+            data.data()["startDate"],
+            data.data()["endDate"],
+            data.data()["startHour"],
+            data.data()["endHour"]
+          )
+      }else if(data.data()["mode"] == "week"){
+        this.collectionSettings =
+          createCollectionSettingsWeekMode(
+            data.data()["id"],
+            data.data()["owner"],
+            data.data()["startHour"],
+            data.data()["endHour"],
+            data.data()["weekdays"]
+          )
+      }
+
       this.collectionSettingsSubject.next(this.collectionSettings);
       this.collectionLoaded = true;
 
@@ -112,6 +128,55 @@ export class DbService {
 
   getCollectionSettings() : Observable<CollectionSettings>{
     return this.collectionSettingsSubject.asObservable();
+  }
+
+    /*
+    createMeeting()
+
+    create a new meeting, we only validate if the id already exist
+  */
+
+  createMeeting(settings: CollectionSettings) : Promise<any>{
+    
+    var resolves;
+    var rejects;
+    const emitter = new EventEmitter();
+    const promise = new Promise((resolve, reject) => {
+      resolves = resolve;
+      rejects = reject;
+    });
+
+    this.afs.collection(settings.id).doc("settings").set(settings)
+    .then( msg => {
+      resolves(msg);
+    }).catch( err => {
+      rejects(err);
+    })
+
+    return promise;
+  }
+  /*
+  hasUserSetTimetable
+    check if user has set his/her timetable
+  */
+  hasUserSetTimetable(uid: string, collection: string) : Promise<any>{
+    var resolves;
+    var rejects;
+    const emitter = new EventEmitter();
+    const promise = new Promise((resolve, reject) => {
+      resolves = resolve;
+      rejects = reject;
+    });
+
+    this.afs.collection(collection).doc(uid).get().subscribe(data => {
+      if (data == null){
+        resolves(true);
+      }else{
+        rejects(false);
+      }
+    })
+    
+    return promise;
   }
 }
 

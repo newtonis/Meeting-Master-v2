@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'meeting/testMeeting',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

@@ -3,8 +3,14 @@
     --ion-safe-area-bottom: 22px;
 }
 
-ion-col > div {
-    background-color: #f7f7f7;
+ion-item > div {
+    
     border: solid 1px #ddd;
     padding: 10px;
+}
+.item-checkbox-checked{
+    --background: #dcf1cf !important;
+}
+.not-checked-item{
+    --background: #ffffff !important;
 }

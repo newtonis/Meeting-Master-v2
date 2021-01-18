@@ -29,14 +29,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'current-timetable',
+        redirectTo: 'select-people',
         pathMatch: 'prefix'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'current-timetable',
+    redirectTo: 'select-people',
     pathMatch: 'prefix'
   }
 ];

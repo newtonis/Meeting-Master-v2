@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CurrentTimetablePageRoutingModule } from './current-timetable-routing.module';
 
 import { CurrentTimetablePage } from './current-timetable.page';
+import { StaticCalendarComponent } from '../static-calendar/static-calendar.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { CurrentTimetablePage } from './current-timetable.page';
     IonicModule,
     CurrentTimetablePageRoutingModule
   ],
-  declarations: [CurrentTimetablePage]
+  declarations: [
+    CurrentTimetablePage,
+    StaticCalendarComponent
+  ]
 })
 export class CurrentTimetablePageModule {}

@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CollectionSettings } from '../types';
 import { getDaysBetween, convertToTinyFormat, convertToTinyHours } from '../types';
 import { DOCUMENT } from '@angular/common'; 
+import { AuthService } from '../auth.service';
 
 export interface CalendarSlide{
   cols: string[];
@@ -44,13 +45,14 @@ export class DynamicCalendarComponent implements OnInit {
   subscription: Subscription = null;
   firstTime: boolean = false;
 
-  constructor(@Inject(DOCUMENT) document) { 
+  constructor(@Inject(DOCUMENT) document, private authService: AuthService) { 
   
   }
 
   ngOnInit() {
+    this.slider = ViewChild('mySlider');
     this.settings.subscribe((data: CollectionSettings) => {
-      console.log(data);
+      console.log("Data from collection is here");
       if (data != null){
         /// We need to generate the rows and cols of our calendar
         var days: string[] = getDaysBetween(data.startDate, data.endDate);
@@ -71,7 +73,6 @@ export class DynamicCalendarComponent implements OnInit {
       this.timetableLocal = data;
     })
 
-
   }
   isOnBottom(){
     var slideElement: Element = document.getElementById("slideElement" + this.page);
@@ -84,10 +85,10 @@ export class DynamicCalendarComponent implements OnInit {
     var slideElement: Element = document.getElementById("slideElement" + this.page);
     var scrollTop = slideElement.scrollTop;
     var height = slideElement.scrollHeight;
-
-    //slideElement.animate({ scrollTop: slideElement.scrollHeight - slideElement.clientHeight}, 200);
+    console.log((slideElement.scrollHeight - slideElement.clientHeight).toString() + "px" );
+    slideElement.scrollTo({top: slideElement.scrollHeight - slideElement.clientHeight, behavior: 'smooth'});
     
-    slideElement.scrollTop = slideElement.scrollHeight - slideElement.clientHeight;
+    //slideElement.scrollTop = slideElement.scrollHeight - slideElement.clientHeight;
 
     this.scrollChange(this.page, null);
 
@@ -146,7 +147,6 @@ export class DynamicCalendarComponent implements OnInit {
         }
       )
       
-
       slideNumber += 1;
     }
     this.pageUpdated.emit(0);

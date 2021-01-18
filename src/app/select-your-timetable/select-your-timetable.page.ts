@@ -4,6 +4,8 @@ import { CollectionSettings } from '../types';
 import { DbService } from '../db.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicCalendarComponent } from '../dynamic-calendar/dynamic-calendar.component';
+import { ToastController } from '@ionic/angular';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-select-your-timetable',
@@ -23,11 +25,17 @@ export class SelectYourTimetablePage implements OnInit {
   @ViewChild('myCalendar') myCalendar: DynamicCalendarComponent;
   
 
-  constructor(private dbService: DbService, private router: Router, private route: ActivatedRoute) { 
-    this.dbService.loadCollection("ExampleTimetable", false);
-    this.calendarSettings = this.dbService.getCollectionSettings();
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.testTimetable = of({"2020-01-01T00":true,"2020-01-01T05":true});
+  constructor(
+    private dbService: DbService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private toastController: ToastController,
+    private authService: AuthService) {
+
+      this.dbService.loadCollection("ExampleTimetable", false);
+      this.calendarSettings = this.dbService.getCollectionSettings();
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.testTimetable = of({"2020-01-01T00":true,"2020-01-01T05":true});
     
   }
   ngOnInit() {
@@ -67,11 +75,23 @@ export class SelectYourTimetablePage implements OnInit {
   }
   
   save(){
+    this.showToast();
     console.log(this.id);
     this.router.navigateByUrl(`/meeting/${this.id}`);
   }
 
+  async showToast(){
+    let toast = await this.toastController.create({
+      message: 'Your timetable have been saved.',
+      duration: 500,
+      position: 'top',
+    });
+    toast.cssClass = "toast-container";
+    toast.present();
+  }
+
   goBack(){
+    this.authService.setMeetingId(null);
     this.router.navigateByUrl("/select-use-mode");
   }
 }

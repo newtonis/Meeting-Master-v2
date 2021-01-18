@@ -26,11 +26,22 @@ export class NameListComponent implements OnInit {
   ngOnInit() {
     // to check new data
     this.personData.subscribe(data => {
- 
+      for (let person of data){
+        this.dataSelected[person.id] = true;
+      }
     });
   }
-  ionChange(checked: boolean, person : Person){
-    this.dataSelected[person.id] = checked;
+  checked(id: string){
+    if (id in this.dataSelected){
+      if (this.dataSelected[id]  == true){
+        return true;
+      }
+    }
+    return false;
+  }
+  ionChange(event: any, person : Person){
+    console.log(person.id, event.target.checked);
+    this.dataSelected[person.id] = event.target.checked;
     this.personSubject.next(this.dataSelected); // we updated selected names
   }
 }
