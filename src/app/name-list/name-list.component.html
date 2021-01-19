@@ -2,19 +2,21 @@
 <ion-list>
 
   <ion-item 
-  *ngFor="let person of (personData | async)" 
+  *ngFor="let person of (peopleDataSorted | async)" 
   class="ion-align-items-center"
   [ngClass]="{
     'checked-item': checked(person.id), 
     'not-checked-item': !checked(person.id) }"
     >
+    
     <ion-label>
       {{person.name}} 
     </ion-label>
-    
+    <ion-img class="small-image" [src]="person.image_url"></ion-img>
+
     <ion-checkbox
     color="primary" 
-    checked slot="start" 
+    [(ngModel)]="dataSelected[person.id]" slot="start" 
     (ionChange)="ionChange($event, person)">
     </ion-checkbox>
   </ion-item>

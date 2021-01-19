@@ -1,8 +1,13 @@
 
 .red-background{
-    background-color: #e05c5c;
+    background-color: #d19b9b;
 }
-
+.icon{
+    color:#000000;
+}
+.weekday{
+    font-size: 10px;
+}
 
 .table-item{
     border-top: 1px solid #c5c5c5;
@@ -29,10 +34,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 .green-background{
 
-    background-color: #76c795;
+    background-color: #c2ddcc;
 }
 .bottom-table-item{
     border-bottom: 1px solid #c5c5c5;

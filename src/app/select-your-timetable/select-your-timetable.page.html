@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>select your unavailable schedules</ion-title>
+    <ion-title>Your schedule</ion-title>
     <ion-buttons slot="secondary">
       <ion-button (click)="goBack()">
         <ion-icon slot="icon-only" name="arrow-back-circle-outline" ></ion-icon>
@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="content">
-  <app-dynamic-calendar #myCalendar (pageUpdated)="pageUpdated($event)" (numberOfPagesUpdated)="numberOfPagesUpdated($event)" (scrollBottom)="updateBottom($event)" [settings]="calendarSettings" [timetable]="testTimetable">
+  <app-dynamic-calendar #myCalendar (pageUpdated)="pageUpdated($event)" (numberOfPagesUpdated)="numberOfPagesUpdated($event)" (scrollBottom)="updateBottom($event)" [settings]="calendarSettings" [timetable]="testTimetable" (outputTimetable)="timetableChange($event)">
   </app-dynamic-calendar>
 </ion-content>
 

@@ -5,6 +5,7 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular';
 import EventEmitter from 'events';
 import firebase from 'firebase';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CollectionSettings } from './types';
 
 
@@ -15,7 +16,8 @@ export class AuthService {
   user: firebase.User = null;
   collectionSettings: CollectionSettings = null;
   meetingId: string = null;
-  
+  selected: BehaviorSubject<{[id: string]: boolean}> = new BehaviorSubject({});
+
   constructor(private platform: Platform,
     private googlePlus: GooglePlus,
     private afAuth: AngularFireAuth) { }
@@ -37,6 +39,15 @@ export class AuthService {
   }
   getCollectionSettigs(): CollectionSettings{
     return this.collectionSettings;
+  }
+  updateSelectedPeople(selected: {[id: string]: boolean;}){
+    this.selected.next(selected);
+  }
+  getSelectedPeople(): Observable<{[id: string]: boolean;}>{
+    return this.selected.asObservable();
+  }
+  getSelectedPeopleValue(){
+    return this.selected.value;
   }
   logOut(){ // logout for android and desktop
     var resolves, rejects;

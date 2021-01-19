@@ -3,8 +3,11 @@
     <div class="upContainer">
       <ion-grid>
         <ion-row>
-          <ion-col size="1.5" class="table-item-top">
-            
+          <ion-col *ngIf="this.mode=='date'" size="1.5" class="weekday table-item-top">
+            {{getMonthCode(slide.cols[0])}}
+          </ion-col>
+          <ion-col *ngIf="this.mode=='week'" size="1.5" class="weekday table-item-top">
+            Hs
           </ion-col>
           <ion-col size="1.5" class="table-item-top" *ngFor="let col of slide.cols ; last as isLastCol"
           [ngClass]="
@@ -12,9 +15,14 @@
                 'right-table-item': isLastCol
               }"
             >
-            <div  *ngIf="col!='voidcol'" >
-              {{convertToTinyFormat(col)[1]}}<br>
-              <b>{{convertToTinyFormat(col)[0]}}</b>
+            <div *ngIf="col!='voidcol' && this.mode=='date'" >
+              {{convertToTinyFormat(col, mode)[1]}}<br>
+            </div>
+            <div class="weekday" *ngIf="col!='voidcol' && this.mode=='date'" >
+              <b>{{convertToTinyFormat(col, mode)[0]}}</b>
+            </div>
+            <div class="weekday" *ngIf="col!='voidcol' && this.mode=='week'" >
+              <b>{{convertToTinyFormat(col, mode)[0]}}</b>
             </div>
           </ion-col>
 
@@ -38,13 +46,17 @@
                 'bottom-table-item': isLastRow, 
                 'right-table-item': isLastCol,
                 'void-item': col=='voidcol',
-                'red-background': timeOccupied(col + 'T' + row)
+                'red-background': timeOccupied(col + 'T' + row),
+                'green-background': !timeOccupied(col + 'T' + row)
               }"
-              (click)="click(row, col)"
+              (click)="click(col, row)"
               >
 
               <div *ngIf="timeOccupied(col + 'T' + row)">
-                <ion-icon name="close"></ion-icon>
+                <ion-icon class="icon" name="close-circle-outline"></ion-icon>
+              </div>
+              <div *ngIf="!timeOccupied(col + 'T' + row) && !(col=='voidcol')">
+                <ion-icon class="green-icon" name="checkmark-outline"></ion-icon>
               </div>
 
               </ion-button>

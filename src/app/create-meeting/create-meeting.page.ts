@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class CreateMeetingPage implements OnInit {
   mode: string;
   meetingId: string;
-  weekdays: string[];
+  weekdays: number[];
 
   startDate: string;
   endDate: string;
@@ -138,14 +138,18 @@ export class CreateMeetingPage implements OnInit {
 
     this.afAuth.authState.subscribe((user: firebase.User) => {
       console.log("User = " + user);
-
+      var numberWeekDays: number[] = [];
+      for (let num of this.weekdays){
+        numberWeekDays.push(+num);
+      }
+      console.log(numberWeekDays);
       this.DbService.createMeeting(
         createCollectionSettingsWeekMode(
           this.meetingId,
           user.email,
           startHour,
           endHour,
-          this.weekdays
+          numberWeekDays
         )
       ).then(msg => {
         this.showToast("Meeting created succesfully");

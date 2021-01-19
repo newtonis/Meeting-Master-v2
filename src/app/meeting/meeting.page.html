@@ -2,9 +2,13 @@
   <ion-toolbar>
     <ion-title>{{meetingId}}</ion-title>
     <ion-buttons slot="secondary">
+      <ion-button (click)="copyLink()">
+        <ion-icon name="copy-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="goBack()">
         <ion-icon slot="icon-only" name="arrow-back-circle-outline" ></ion-icon>
       </ion-button>
+      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

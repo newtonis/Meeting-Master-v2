@@ -12,6 +12,9 @@
     align-items: center;
     justify-content: center;
 }
+.weekday{
+    font-size: 10px;
+}
 .table-item-top{
     border-top: 1px solid #c5c5c5;
     border-left: 1px solid #c5c5c5;
@@ -24,6 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 .green-background{
 

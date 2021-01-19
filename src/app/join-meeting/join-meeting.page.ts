@@ -11,6 +11,7 @@ export class JoinMeetingPage implements OnInit {
 
   meetingId: string;
   msg_invite: string = "";
+  
   constructor(
     private router: Router,
     private auth: AuthService) { }

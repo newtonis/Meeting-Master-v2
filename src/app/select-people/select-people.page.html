@@ -1,6 +1,6 @@
 
 <ion-content>
-  <app-name-list [personData]="peopleData">
+  <app-name-list [peopleData]="peopleData" (peopleSelected)="updatePeopleSelected($event)">
 
   </app-name-list>
 </ion-content>

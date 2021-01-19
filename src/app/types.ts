@@ -1,11 +1,20 @@
 import { Observable } from 'rxjs';
 import { format, parse, eachDayOfInterval } from 'date-fns';
+import { User } from 'firebase';
 
 /** Person type, for now on only has name and available hours */
 
+export interface UserData{
+    id: string;
+    name: string;
+    email: string;
+    image_url: string;
+}
 export interface Person{
     id : string;
     name : string;
+    image_url : string;
+    email : string;
     timetable : {[timeCode : string]: boolean};
 }
 
@@ -25,6 +34,42 @@ export interface CollectionSettings{
     id: string;
     weekdays: number[];
     owner: string;
+}
+
+export function createUserData(
+    id: string,
+    name: string,
+    email: string,
+    image_url: string
+){
+    return {
+        id: id,
+        name: name,
+        email: email,
+        image_url: image_url
+    }
+}
+
+export function generateUserData(user: firebase.User) : UserData{
+    return {
+        id: user.uid,
+        name: user.displayName,
+        email: user.email,
+        image_url: user.photoURL
+    }
+}
+
+export function createPerson(
+    userData: UserData,
+    timetable : {[timeCode:string] : boolean}
+) : Person{
+    return {
+        id: userData.id,
+        name: userData.name,
+        email: userData.email,
+        image_url: userData.image_url,
+        timetable: timetable
+    }
 }
 
 export function createCollectionSettingsDateMode(
@@ -53,7 +98,7 @@ export function createCollectionSettingsWeekMode(
     owner,
     startHour,
     endHour,
-    weekdays
+    weekdays: number[]
 ) : CollectionSettings{
 
     return {
@@ -67,7 +112,18 @@ export function createCollectionSettingsWeekMode(
         owner: owner
     }
 }
-
+export function createVoidCollectionSettings(){
+    return {
+        startDate:"void",
+        endDate:"void",
+        startHour:0,
+        endHour:0,
+        mode:"not found",
+        id: "void",
+        weekdays: [],
+        owner:null
+    }
+}
 export function timeToString(hour: number, day: number, month: number, year: number) : string{
     var date: Date = new Date();
     date.setFullYear(year, month);
@@ -112,12 +168,48 @@ export function getDaysBetween(startTime: string, endTime: string){
     return ans;
 }
 
-export function convertToTinyFormat(startTime: string) : [string, string]{
+export function convertToTinyFormat(startTime: string, mode: string) : [string, string]{
+    if (mode == "date"){
+        return convertToTinyFormatDateMode(startTime);
+    }else if(mode == "week"){
+        return convertToTinyFormatWeekMode(startTime);
+    }
+}
+export function convertToTinyFormatDateMode(startTime: string) : [string, string]{
     var date: Date = parse(startTime, "yyyy-MM-dd", new Date());
-    var day: string = format(date, "ccc")[0];
+    var day: string = format(date, "ccc");
     var number: string = format(date,"dd");
 
     return [day,number];
+}
+export function convertToTinyFormatWeekMode(startTime: string) : [string, string]{
+    var day: string = "Mon";
+    if (startTime == "01"){
+        day = "Mon";
+    }else if(startTime == "02"){
+        day = "Tue";
+    }else if(startTime == "03"){
+        day = "Wed";
+    }else if(startTime == "04"){
+        day = "Thu";
+    }else if(startTime == "05"){
+        day = "Fri";
+    }else if(startTime == "06"){
+        day = "Sat";
+    }else if(startTime == "07"){
+        day = "Sun";
+    }
+    var number: string = startTime;
+
+    return [day,number];
+}
+
+export function getMonthCode(startTime: string){
+    var date: Date = parse(startTime, "yyyy-MM-dd", new Date());
+
+    var month: string = format(date, "MMM");
+
+    return month;
 }
 
 export function convertToTinyHours(time: string) : string{
@@ -125,4 +217,25 @@ export function convertToTinyHours(time: string) : string{
     var simpleDate: string = format(date, "HH");
 
     return simpleDate;
+}
+
+/* 
+
+    mergeTimetables(people: Person[])
+
+    merge all timetables, they show times user can't go meeting
+
+*/
+export function mergeTimetables(people: Person[], selected_people: {[id: string] : boolean}) : {[value: string] : boolean}{
+    var answer : {[value: string] : boolean} = {};
+
+    for (let person of people){
+        if (person.id in selected_people){
+            if (selected_people[person.id] == true){
+                answer = Object.assign({}, person.timetable, answer);
+            }
+        }
+    }
+    return answer;
+    // no
 }

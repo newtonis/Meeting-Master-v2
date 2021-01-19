@@ -18,6 +18,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+
 import firebase from 'firebase';
 
 @NgModule({
@@ -34,6 +36,7 @@ import firebase from 'firebase';
     SplashScreen,
     FirebaseAuthentication,
     GooglePlus,
+    Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
