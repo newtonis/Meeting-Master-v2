@@ -92,12 +92,29 @@ export class MeetingPage implements OnInit {
   }
 
   copyLink(){
-    var link: string = "http://localhost:8100/meeting/"+this.meetingId;
+    var link: string = "https://meetingmaster.web.app/meeting/"+this.meetingId;
 
     if (this.platform.is("android")){
-      this.clipboard.copy(link);
+      try{
+        this.clipboard.copy(link);
+        this.clipboardWeb.copy(link);
+      }catch{
+
+      }
     }else if(this.platform.is("desktop")){
-      this.clipboardWeb.copy(link);
+      try{
+        this.clipboard.copy(link);
+        this.clipboardWeb.copy(link);
+      }catch{
+        
+      }
+    }else{
+      try{
+        this.clipboard.copy(link);
+        this.clipboardWeb.copy(link);
+      }catch{
+        
+      }
     }
     this.showToast("Link to join copied to clipboard!");
   }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,7 +8,6 @@ import { SelectPeoplePageRoutingModule } from './select-people-routing.module';
 
 import { SelectPeoplePage } from './select-people.page';
 import { NameListComponent } from '../name-list/name-list.component';
-import { NameListTestPageModule } from '../name-list-test/name-list-test.module';
 
 @NgModule({
   imports: [
@@ -20,6 +19,7 @@ import { NameListTestPageModule } from '../name-list-test/name-list-test.module'
   declarations: [
     SelectPeoplePage,
     NameListComponent
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class SelectPeoplePageModule {}

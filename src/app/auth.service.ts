@@ -59,21 +59,27 @@ export class AuthService {
       rejects = reject;
     });
     
-    if (this.platform.is("android")){
+    //if (this.platform.is("android")){
       this.googlePlus.logout().then(msg => {
         console.log("logout " + msg);
         resolves("logout "+ msg);
       }).catch(msg => {
-        rejects("error: " + msg);
+        console.log("Trying web mode");
+        this.afAuth.signOut().then(msg => {
+          console.log("logout " + msg);
+          resolves("logout: "+ msg);
+        }).catch(msg => {
+          rejects("error: " + msg);
+        });  
       });
-    }else if(this.platform.is("desktop")){
-      this.afAuth.signOut().then(msg => {
+    //}else if(this.platform.is("desktop")){
+    /*  this.afAuth.signOut().then(msg => {
         console.log("logout " + msg);
         resolves("logout: "+ msg);
       }).catch(msg => {
         rejects("error: " + msg);
       })
-    }
+    }*/
     
     return promise;
   }

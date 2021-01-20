@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -21,9 +21,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 
 import firebase from 'firebase';
+import { NameListComponent } from './name-list/name-list.component';
+import { DynamicCalendarComponent } from './dynamic-calendar/dynamic-calendar.component';
+import { StaticCalendarComponent } from './static-calendar/static-calendar.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   entryComponents: [],
   imports: [
     BrowserModule, IonicModule.forRoot(), AppRoutingModule,
@@ -39,6 +44,7 @@ import firebase from 'firebase';
     Clipboard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

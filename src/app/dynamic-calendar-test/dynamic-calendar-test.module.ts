@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { DynamicCalendarTestPageRoutingModule } from './dynamic-calendar-test-routing.module';
 
 import { DynamicCalendarTestPage } from './dynamic-calendar-test.page';
-import { DynamicCalendarComponent } from '../dynamic-calendar/dynamic-calendar.component';
 
 @NgModule({
   imports: [
@@ -16,6 +15,7 @@ import { DynamicCalendarComponent } from '../dynamic-calendar/dynamic-calendar.c
     IonicModule,
     DynamicCalendarTestPageRoutingModule
   ],
-  declarations: [DynamicCalendarTestPage, DynamicCalendarComponent]
+  declarations: [DynamicCalendarTestPage],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class DynamicCalendarTestPageModule {}

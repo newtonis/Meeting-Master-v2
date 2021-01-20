@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,6 +8,8 @@ import { StaticCalendarTestPageRoutingModule } from './static-calendar-test-rout
 
 import { StaticCalendarTestPage } from './static-calendar-test.page';
 import { StaticCalendarComponent } from '../static-calendar/static-calendar.component';
+import { NameListComponent } from '../name-list/name-list.component';
+import { DynamicCalendarComponent } from '../dynamic-calendar/dynamic-calendar.component';
 
 @NgModule({
   imports: [
@@ -17,8 +19,8 @@ import { StaticCalendarComponent } from '../static-calendar/static-calendar.comp
     StaticCalendarTestPageRoutingModule
   ],
   declarations: [
-    StaticCalendarTestPage, 
-    StaticCalendarComponent
-  ]
+    StaticCalendarTestPage
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class StaticCalendarTestPageModule {}

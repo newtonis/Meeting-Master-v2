@@ -62,7 +62,7 @@ export class StaticCalendarComponent implements OnInit {
     for (var day of days){
       this.cols.push(day);
     }
-
+    this.rows = [];
     for (var hour = data.startHour; hour < data.endHour;hour += 1){
       this.rows.push(convertToTinyHours(hour.toString()));
     }

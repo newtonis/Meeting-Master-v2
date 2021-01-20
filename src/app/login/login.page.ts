@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
 
     console.log("Starting silent sign in with google");
 
-    if (this.platform.is("android")){
+    //if (this.platform.is("android")){
       this.googlePlus.trySilentLogin({
         'webClientId': '649189702387-nag7umiotvopstkvj1h8ub1iuoa2ddbh.apps.googleusercontent.com',
         'offline': false
@@ -106,8 +106,8 @@ export class LoginPage implements OnInit {
     }).catch( (msg) => {
         rejects("Gplus signin failed error=" + msg);
       });
-    }else if(this.platform.is("desktop")){
-      console.log("running in desktop");
+    //}else if(this.platform.is("desktop")){
+      /*console.log("running in desktop");
 
         this.afAuth.authState.subscribe( (user : firebase.User) =>{
           if (user != null){
@@ -120,7 +120,7 @@ export class LoginPage implements OnInit {
             rejects("User not logged");
           }
         });
-      }
+      }*/
     return promise; 
   }
   signInGoogle(){
@@ -149,8 +149,9 @@ export class LoginPage implements OnInit {
       rejects = reject;
     });
     console.log("Starting to sign in with google");
+    var tryDesktop: boolean = false;
 
-    if (this.platform.is("android")){
+    //if (this.platform.is("android")){
       this.googlePlus.login({
         'webClientId': '649189702387-nag7umiotvopstkvj1h8ub1iuoa2ddbh.apps.googleusercontent.com',
         'offline': true
@@ -168,13 +169,73 @@ export class LoginPage implements OnInit {
             resolves(result.user);
           })
           .catch((gplusErr) => {
-            rejects("GooglePlus failed error= "+gplusErr);
+            console.log("GooglePlus failed error= "+gplusErr);
+             // we will try desktop mode
+            tryDesktop = true;
+            console.log("runing in desktop");
+
+            var provider = new auth.GoogleAuthProvider();
+
+            this.afAuth.signInWithPopup(provider).then(function(result) {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              var token = result.credential;
+              // The signed-in user info.
+              var user = result.user;
+              //this.authService.setUser(user);
+              //this.afAuth.updateCurrentUser(user);
+              console.log("Signed in user= " + user.displayName + " token= " + token.providerId);
+              resolves(user);
+              // ...
+            }).catch(function(error) {
+
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // The email of the user's account used.
+              var email = error.email;
+              // The firebase.auth.AuthCredential type that was used.
+              var credential = error.credential;
+              // ...
+              rejects("Error in login = " + errorCode + " " + errorMessage);
+            });
+          
           });
         
     }).catch( (msg) => {
-        rejects("Gplus signin failed error=" + msg);
+        console.log("Gplus signin failed error=" + msg);
+        
+        // we will try desktop mode
+        tryDesktop = true;
+
+        console.log("runing in desktop");
+
+        var provider = new auth.GoogleAuthProvider();
+
+        this.afAuth.signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential;
+          // The signed-in user info.
+          var user = result.user;
+          //this.authService.setUser(user);
+          //this.afAuth.updateCurrentUser(user);
+          console.log("Signed in user= " + user.displayName + " token= " + token.providerId);
+          resolves(user);
+          // ...
+        }).catch(function(error) {
+
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+          rejects("Error in login = " + errorCode + " " + errorMessage);
+        });
+
       });
-    }else if(this.platform.is("desktop")){
+    /*}else if(this.platform.is("desktop")){
       console.log("runing in desktop");
 
       var provider = new auth.GoogleAuthProvider();
@@ -201,7 +262,7 @@ export class LoginPage implements OnInit {
         // ...
         rejects("Error in login = " + errorCode + " " + errorMessage);
       });
-    }
+    }*/
 
     return promise; 
   }

@@ -91,8 +91,8 @@ export class CreateMeetingPage implements OnInit {
         createCollectionSettingsDateMode(
           this.meetingId,
           user.email,
-          startDate,
-          endDate,
+          startDate+"T01",
+          endDate+"T01",
           startHour,
           endHour
         )

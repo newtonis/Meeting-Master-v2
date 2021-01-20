@@ -99,7 +99,7 @@ export class DbService {
       console.log(data);
       for (const docName in data){ // for each user in db
       
-        if (data[docName]["id"] != 'settings'){
+        if (!(data[docName]["mode"])){
           var doc = data[docName];
           var newPerson : Person = createPerson(
             createUserData(
