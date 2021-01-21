@@ -49,6 +49,10 @@ export class AuthService {
   getSelectedPeopleValue(){
     return this.selected.value;
   }
+  // call when we need to refresh people observable
+  refreshPeople(){
+    this.selected.next(this.selected.getValue());
+  }
   logOut(){ // logout for android and desktop
     var resolves, rejects;
 

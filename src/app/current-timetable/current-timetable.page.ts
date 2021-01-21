@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CollectionSettings, Person } from '../types';
 import { DbService } from '../db.service';
@@ -16,27 +16,35 @@ import { mergeTimetables } from '../types';
 export class CurrentTimetablePage implements OnInit {
 
   calendarSettings: Observable<CollectionSettings>;
-  calendarSettingsSubj: BehaviorSubject<CollectionSettings> = new BehaviorSubject(null);
   peopleObservable: Observable<Person[]>;
   selectedPeople: {[id: string] : boolean} = {};
+  people: Person[];
 
   timetable: Observable<{[id:string]:boolean}>;
   constructor(private dbService: DbService, private authService: AuthService) { 
-    console.log("load collection");
     //this.dbService.setCollectionName()
-    this.calendarSettings = this.calendarSettingsSubj.asObservable();
-    
+    this.calendarSettings = this.dbService.getCollectionSettings();
     //this.testTimetable = of({});
     
     this.peopleObservable = this.dbService.getUsersData();
 
-    this.timetable = this.peopleObservable.pipe(map(
+    /*this.timetable = this.peopleObservable.pipe(map(
       (people: Person[]) => mergeTimetables(people, this.selectedPeople)
-    ));
+    ));*/
 
-    this.authService.getSelectedPeople().subscribe((selected: {[id: string] : boolean}) => {
+    /*this.authService.getSelectedPeople().subscribe((selected: {[id: string] : boolean}) => {
       this.selectedPeople = selected;
-    })
+    })*/
+    this.peopleObservable.subscribe((people: Person[]) => {
+      this.people = people;
+      this.authService.refreshPeople();
+    });
+
+    this.timetable = this.authService.getSelectedPeople().pipe(map(
+      (selected: {[id: string] : boolean} ) => {
+        return mergeTimetables(this.people, selected);
+      }
+    ));
     
   }
 
@@ -44,9 +52,6 @@ export class CurrentTimetablePage implements OnInit {
     
   }
   ionViewDidEnter() {
-    this.dbService.loadCollection(this.authService.getMeetingId(), false).then(collectionData =>{
-      this.calendarSettingsSubj.next(collectionData);
-    });
-    this.dbService.requestUserData(this.authService.getMeetingId());
+
   }
 }

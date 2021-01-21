@@ -7,6 +7,8 @@ import { DbService } from '../db.service';
 import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import {Clipboard as ClipboardWeb} from '@angular/cdk/clipboard';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CollectionSettings, Person } from '../types';
 
 @Component({
   selector: 'app-meeting',
@@ -18,6 +20,8 @@ export class MeetingPage implements OnInit {
   meetingId: string;
   loadingUI: HTMLIonLoadingElement = null;
   loaded: boolean = false;
+  calendarSettings: Observable<CollectionSettings>;
+  calendarSettingsSubj: BehaviorSubject<CollectionSettings> = new BehaviorSubject(null);
 
   constructor(
     private router: Router, 
@@ -29,7 +33,8 @@ export class MeetingPage implements OnInit {
     private clipboard: Clipboard,
     private clipboardWeb: ClipboardWeb,
     private loadingController: LoadingController,
-    private platform: Platform
+    private platform: Platform,
+    private authService: AuthService
     ) { 
     this.meetingId = this.route.snapshot.paramMap.get("id");
     this.auth.setMeetingId(this.meetingId);
@@ -69,7 +74,9 @@ export class MeetingPage implements OnInit {
         });
       }
     });
-
+    this.dbService.loadCollectionInBackground(this.authService.getMeetingId());
+    this.dbService.requestUserData(this.authService.getMeetingId());
+    this.authService.refreshPeople();
   }
 
   async setLoading() {

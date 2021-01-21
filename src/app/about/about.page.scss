@@ -1,5 +1,5 @@
 .full{
-    text-align:center;
+
 }
 .small-image{
     width:60px;
@@ -21,5 +21,16 @@
     flex-direction: column;
 }
 .ion-content-card{
-    text-align: left;
+       
+    max-width: 800px;
+}
+.card-container{
+    text-align:center;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+}
+.card-content{
+    text-align: left; 
 }

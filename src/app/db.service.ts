@@ -13,6 +13,8 @@ import { AuthService } from './auth.service';
 })
 export class DbService {
   collectionSettings: CollectionSettings = null;
+  CollectionSettingsObs : Observable<CollectionSettings>;
+  collectionSettingsSub: BehaviorSubject<CollectionSettings> = new BehaviorSubject(null);
 
   collectionLoaded: boolean = false;
   usersDataSubscription: Subscription = null;
@@ -24,6 +26,24 @@ export class DbService {
 
   constructor(private afs: AngularFirestore, private afAuth: AngularFireAuth, private authService: AuthService) { 
     
+  }
+
+  /* 
+    loadCollectionInBackground(collectionName)
+
+    select a collection and update corresponding observable
+  */
+
+  loadCollectionInBackground(collectionName: string){
+    this.loadCollection(collectionName, false);
+
+    this.loadCollection(collectionName).then(
+      (data : CollectionSettings) => {
+        this.collectionSettingsSubject.next(data);
+      }
+    ).catch(err => {
+      console.log(err);
+    })
   }
 
   /* 
