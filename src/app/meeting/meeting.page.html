@@ -2,18 +2,23 @@
   <ion-toolbar>
     <ion-title>{{meetingId}}</ion-title>
     <ion-buttons slot="secondary">
-      <ion-button (click)="copyLink()">
-        <ion-icon name="copy-outline"></ion-icon>
+      <ion-button href="https://forms.gle/TTRAMZJP4xcubDo46">
+        Help Us
       </ion-button>
+
       <ion-button (click)="goBack()">
         <ion-icon slot="icon-only" name="arrow-back-circle-outline" ></ion-icon>
       </ion-button>
-      
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-button class="floatButton" (click)="copyLink()">
+    Invite people&nbsp;
+    <ion-icon name="copy-outline"></ion-icon>
+  </ion-button>
   <ion-tabs>
     <ion-tab-bar slot="top">
       

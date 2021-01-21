@@ -26,6 +26,12 @@ export class JoinMeetingPage implements OnInit {
   join(){
     console.log("meeting id = " + this.meetingId);
 
-    this.router.navigateByUrl("/select-your-timetable/" + this.meetingId );
+    if (this.meetingId.startsWith("https://meetingmaster.web.app")){
+      this.router.navigateByUrl(this.meetingId);
+    }else if(this.meetingId.startsWith("meetingmaster.web.app")){
+      this.router.navigateByUrl(this.meetingId);
+    }else{
+      this.router.navigateByUrl("/select-your-timetable/" + this.meetingId );
+    }
   }
 }

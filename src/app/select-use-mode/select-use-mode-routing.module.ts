@@ -29,14 +29,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'join-meeting',
+        redirectTo: 'create-meeting',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'join-meeting',
+    redirectTo: 'create-meeting',
     pathMatch: 'full'
   }
 ];

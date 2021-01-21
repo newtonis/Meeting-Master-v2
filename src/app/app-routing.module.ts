@@ -43,6 +43,14 @@ const routes: Routes = [
   {
     path: 'select-your-timetable/:id',
     loadChildren: () => import('./select-your-timetable/select-your-timetable.module').then( m => m.SelectYourTimetablePageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'helpus',
+    loadChildren: () => import('./helpus/helpus.module').then( m => m.HelpusPageModule)
   }
 ];
 

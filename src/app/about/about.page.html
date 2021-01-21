@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>About</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="full">
+  <ion-card>
+    <ion-card-header>
+      <div class="img-container">
+        <div>
+          <ion-img class="small-image" [src]="'https://i.ibb.co/B2bT5tz/1585676703643.jpg'"></ion-img>
+        </div>
+      </div>
+      <ion-card-subtitle>I'm am not just a programmer. </ion-card-subtitle>
+      <ion-card-title>Ariel Santiago Nowik</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content class="ion-content-card">
+      My name is Ariel Nowik, I was born in Argentina in 1998. I am a student from ITBA University (Instituto Tecnologico de Buenos Aires).
+      <br>I know how to program since my early ages. I have interests in Teaching, Blockchain, Entrepreneurship. I want to pursue a carrear leading big projects that might involve programming and systems but not willing to limit myself to that. 
+      <br>I love working with other people and making multidisciplinary projects to mix well. I also know how to speak in public.
+      <br>I am interested in working or studying opportunities in Argentina or other countries as well.
+      <br>I also play piano as a hobby for more than 10 years.
+      <br>
+      <div>
+        <ion-button href="mailto:anowik@itba.edu.ar">
+          EMAIL ME
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

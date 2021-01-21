@@ -1,0 +1,25 @@
+.full{
+    text-align:center;
+}
+.small-image{
+    width:60px;
+    height: 60px;
+    border-radius: 50% !important;
+    margin:10px;
+    overflow: hidden;
+}
+.top-content{
+    display:flex;
+    align-items: center;
+    flex-direction: row;
+    padding:20px;
+}
+.img-container{
+    width:100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.ion-content-card{
+    text-align: left;
+}

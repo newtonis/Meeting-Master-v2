@@ -92,7 +92,7 @@ export class MeetingPage implements OnInit {
   }
 
   copyLink(){
-    var link: string = "https://meetingmaster.web.app/meeting/"+this.meetingId;
+    var link: string = "https://meetingmaster.web.app/meeting/"+ this.meetingId.replace(/ /g, '%20');
 
     if (this.platform.is("android")){
       try{
