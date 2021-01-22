@@ -84,6 +84,8 @@ export class CreateMeetingPage implements OnInit {
 
       return 0;
     }
+
+    
     this.afAuth.authState.subscribe((user: firebase.User) => {
       console.log("User = " + user);
 

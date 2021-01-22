@@ -1,68 +1,70 @@
 
-<ion-content fullscreen>
-  <div class="content">
-    <div class="itembox">
-      <h3>
-        Select specs for a new meeting
-      </h3>
-    </div>
-    <div class="itembox">
-      <ion-item>
-        <ion-label position="floating">Enter meeting unique name</ion-label>
-        <ion-input [(ngModel)]="meetingId"></ion-input>
-      </ion-item>
-    </div>
-    <div class="itembox">
-      <ion-item>
-        <ion-label position="floating">Select mode</ion-label>
-        <ion-select [(ngModel)]="mode">
-          <ion-select-option value="Week">Week</ion-select-option>
-          <ion-select-option value="Custom dates">Custom dates</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </div>
-    <div class="itembox">
-      <ion-item *ngIf="mode == 'Week'">
-        <ion-label>Select week days</ion-label>
-        <ion-select [(ngModel)]="weekdays" multiple="true">
-          <ion-select-option value=0>Monday</ion-select-option>
-          <ion-select-option value=1>Tuesday</ion-select-option>
-          <ion-select-option value=2>Wendsday</ion-select-option>
-          <ion-select-option value=3>Thursday</ion-select-option>
-          <ion-select-option value=4>Friday</ion-select-option>
-          <ion-select-option value=5>Saturday</ion-select-option>
-          <ion-select-option value=6>Sunday</ion-select-option>
-        </ion-select>
-      </ion-item>
+<ion-content>
+  <div class="full-content">
+    <div class="content">
+      <div class="itembox">
+        <h3>
+          Select specs for a new meeting
+        </h3>
+      </div>
+      <div class="itembox">
+        <ion-item>
+          <ion-label position="floating">Enter meeting unique name</ion-label>
+          <ion-input [(ngModel)]="meetingId"></ion-input>
+        </ion-item>
+      </div>
+      <div class="itembox">
+        <ion-item>
+          <ion-label position="floating">Select mode</ion-label>
+          <ion-select [(ngModel)]="mode">
+            <ion-select-option value="Week">Week</ion-select-option>
+            <ion-select-option value="Custom dates">Custom dates</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="itembox">
+        <ion-item *ngIf="mode == 'Week'">
+          <ion-label>Select week days</ion-label>
+          <ion-select [(ngModel)]="weekdays" multiple="true">
+            <ion-select-option value=0>Monday</ion-select-option>
+            <ion-select-option value=1>Tuesday</ion-select-option>
+            <ion-select-option value=2>Wednesday</ion-select-option>
+            <ion-select-option value=3>Thursday</ion-select-option>
+            <ion-select-option value=4>Friday</ion-select-option>
+            <ion-select-option value=5>Saturday</ion-select-option>
+            <ion-select-option value=6>Sunday</ion-select-option>
+          </ion-select>
+        </ion-item>
 
 
 
-      <ion-item *ngIf="mode == 'Custom dates'">
-        
-        <ion-label>Start Date</ion-label>
-        <ion-datetime [(ngModel)]="startDate" displayFormat="DD MM YYYY" min="2020" max="2025" value="2021-01-18"></ion-datetime>
-        
-      </ion-item>
-      <ion-item *ngIf="mode == 'Custom dates'">
-        
-        <ion-label>End Date</ion-label>
-        <ion-datetime [(ngModel)]="endDate" displayFormat="DD MM YYYY" min="2020" max="2025" value="2020-01-20"></ion-datetime>
-        
-      </ion-item>
-    </div>
-    <div class="itembox">
-      <ion-item> 
-        <ion-label>Start Hour</ion-label>
-        <ion-datetime [(ngModel)]="startHour" displayFormat="HH" value="1990-02-19T07:43Z"></ion-datetime>
-      </ion-item>
+        <ion-item *ngIf="mode == 'Custom dates'">
+          
+          <ion-label>Start Date</ion-label>
+          <ion-datetime [(ngModel)]="startDate" displayFormat="DD MM YYYY" min="2020" max="2025" value="2021-01-18"></ion-datetime>
+          
+        </ion-item>
+        <ion-item *ngIf="mode == 'Custom dates'">
+          
+          <ion-label>End Date</ion-label>
+          <ion-datetime [(ngModel)]="endDate" displayFormat="DD MM YYYY" min="2020" max="2025" value="2020-01-20"></ion-datetime>
+          
+        </ion-item>
+      </div>
+      <div class="itembox">
+        <ion-item> 
+          <ion-label>Start Hour</ion-label>
+          <ion-datetime [(ngModel)]="startHour" displayFormat="HH" value="1990-02-19T07:43Z"></ion-datetime>
+        </ion-item>
 
-      <ion-item>
-        <ion-label>End Hour</ion-label>
-        <ion-datetime [(ngModel)]="endHour" displayFormat="HH" value="1990-02-19T07:43Z"></ion-datetime>
-      </ion-item>
-    </div>
-    <div class="itembox">
-      <ion-button class="startingButton" color="secondary" (click)="createMeeting()"> Create Meeting</ion-button>
+        <ion-item>
+          <ion-label>End Hour</ion-label>
+          <ion-datetime [(ngModel)]="endHour" displayFormat="HH" value="1990-02-19T07:43Z"></ion-datetime>
+        </ion-item>
+      </div>
+      <div class="itembox">
+        <ion-button class="startingButton" color="secondary" (click)="createMeeting()"> Create Meeting</ion-button>
+      </div>
     </div>
   </div>
 </ion-content>

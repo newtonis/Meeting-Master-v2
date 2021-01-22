@@ -1,10 +1,12 @@
-ion-content{
+
+.full-content{
     display:flex;
     align-items: center;
     flex-direction: column;
+    
 }
 .content{
-   
+    text-align: center;
 }
 .itembox{
     margin:50px;
