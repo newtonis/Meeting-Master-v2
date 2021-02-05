@@ -184,19 +184,19 @@ export function convertToTinyFormatDateMode(startTime: string) : [string, string
 }
 export function convertToTinyFormatWeekMode(startTime: string) : [string, string]{
     var day: string = "Mon";
-    if (startTime == "01"){
+    if (startTime == "00"){
         day = "Mon";
-    }else if(startTime == "02"){
+    }else if(startTime == "01"){
         day = "Tue";
-    }else if(startTime == "03"){
+    }else if(startTime == "02"){
         day = "Wed";
-    }else if(startTime == "04"){
+    }else if(startTime == "03"){
         day = "Thu";
-    }else if(startTime == "05"){
+    }else if(startTime == "04"){
         day = "Fri";
-    }else if(startTime == "06"){
+    }else if(startTime == "05"){
         day = "Sat";
-    }else if(startTime == "07"){
+    }else if(startTime == "06"){
         day = "Sun";
     }
     var number: string = startTime;

@@ -81,7 +81,7 @@ export class StaticCalendarComponent implements OnInit {
     }
 
     this.cols = [];
-    for (let day of [1, 2, 3, 4, 5, 6, 7]){
+    for (let day of [0, 1, 2, 3, 4, 5, 6]){
       if (day in weekdays){
         this.cols.push("0" + day.toString());
       }else{
